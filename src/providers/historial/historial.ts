@@ -5,6 +5,8 @@ import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/cont
 import { ModalController, Platform, ToastController, AlertController } from "ionic-angular";
 import { MapaPage } from "../../pages/mapa/mapa";
 
+import { Clipboard } from '@ionic-native/clipboard';
+
 //import { Hotspot } from '@ionic-native/hotspot';
 /*
   Generated class for the HistorialProvider provider.
@@ -24,7 +26,8 @@ export class HistorialProvider {
                private contacts: Contacts,
                private platform:Platform,
                private toastCtrl:ToastController,
-               private alert:AlertController
+               private alert:AlertController,
+               private portapapeles:Clipboard
                /*private hotspot:Hotspot*/) { }
 
 
@@ -99,7 +102,19 @@ export class HistorialProvider {
     this.alert.create({
       title: 'Datos de la red',
       subTitle: alertTxt,
-      buttons: ['Aceptar']
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Copiar',
+          handler: () => {
+            this.portapapeles.copy(pass);
+            this.crear_toast("Contraseña copiada al portapapeles");
+          }
+        }
+      ]
     }).present();
 
     /*
