@@ -21,6 +21,9 @@ import { Contacts } from '@ionic-native/contacts';
 import { AgmCoreModule } from '@agm/core';
 import { HistorialProvider } from '../providers/historial/historial';
 
+//Wifi
+//import { Hotspot } from '@ionic-native/hotspot';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -50,6 +53,7 @@ import { HistorialProvider } from '../providers/historial/historial';
     BarcodeScanner,
     InAppBrowser,
     Contacts,
+    //Hotspot,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HistorialProvider
   ]

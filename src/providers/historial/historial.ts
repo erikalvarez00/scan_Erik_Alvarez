@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ScanData } from "../../models/scan-data.model";
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { Contacts, Contact, ContactField, ContactName   } from '@ionic-native/contacts';
-import { ModalController, Platform, ToastController } from "ionic-angular";
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+import { ModalController, Platform, ToastController, AlertController } from "ionic-angular";
 import { MapaPage } from "../../pages/mapa/mapa";
+
+//import { Hotspot } from '@ionic-native/hotspot';
 /*
   Generated class for the HistorialProvider provider.
 
@@ -21,7 +23,9 @@ export class HistorialProvider {
                private modalCtrl: ModalController,
                private contacts: Contacts,
                private platform:Platform,
-               private toastCtrl:ToastController) { }
+               private toastCtrl:ToastController,
+               private alert:AlertController
+               /*private hotspot:Hotspot*/) { }
 
 
   agregar_historial( texto:string ){
@@ -82,7 +86,45 @@ export class HistorialProvider {
     let ecpt = datosRed[1].replace("ENCRYPTION:", "");
     let pass = datosRed[2].replace("PASSWORD:", "");
 
-    this.crear_toast("Conectado a: " + ssid);
+    let alertTxt;
+
+    console.log("SSID:" + ssid);
+    console.log("ENCRYPTION:" + ecpt);
+    console.log("PASSWORD:" + pass);
+
+    alertTxt = "SSID: " + ssid + "\n";
+    alertTxt += "ENCRIPTACIÓN: " + ecpt + "\n";
+    alertTxt += "CONTRASEÑA: " + pass + "\n";
+
+    this.alert.create({
+      title: 'Datos de la red',
+      subTitle: alertTxt,
+      buttons: ['Aceptar']
+    }).present();
+
+    /*
+    // Intentando conectar a red Wifi con Wifi Hotspot
+    this.hotspot.isWifiSupported().then(isSupported => {
+      if(isSupported){
+        this.hotspot.isWifiOn().then(isOn => {
+          if(isOn){
+            this.hotspot.removeWifiNetwork(ssid).then(() => {
+              this.hotspot.connectToWifi(ssid, pass).then(() => {
+                this.crear_toast("Conectado a: " + ssid);
+              }).catch(error => {
+                console.log(error);
+                this.crear_toast("La red " + ssid + " se encuentra fuera de rango.");
+              });
+            });
+          }else{
+            this.crear_toast("Encienda el Wi Fi para continuar.");
+          }
+        });
+      }else{
+        this.crear_toast("La tecnología Wi Fi no esta soportada por el dispositivo.");
+      }
+    });
+    */
   }
 
   private crear_email(texto:string){
