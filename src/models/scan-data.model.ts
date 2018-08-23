@@ -14,7 +14,7 @@ export class ScanData{
       this.tipo = "contacto";
     }else if( texto.startsWith("MATMSG") ){
       this.tipo = "email";
-    }else if( texto.startsWith("SSID") ){
+    }else if( texto.startsWith("WIFI") ){
       this.tipo = "wifi";
     }   
   }

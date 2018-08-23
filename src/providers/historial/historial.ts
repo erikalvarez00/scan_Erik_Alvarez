@@ -85,9 +85,9 @@ export class HistorialProvider {
   private mostrar_datos_red(texto:string){
     let datosRed = texto.split(";");
 
-    let ssid = datosRed[0].replace("SSID:", "");
-    let ecpt = datosRed[1].replace("ENCRYPTION:", "");
-    let pass = datosRed[2].replace("PASSWORD:", "");
+    let ssid = datosRed[0].replace("WIFI:S:", "");
+    let ecpt = datosRed[1].replace("T:", "");
+    let pass = datosRed[2].replace("P:", "");
 
     let alertTxt;
 
